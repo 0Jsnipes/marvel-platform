@@ -22,7 +22,11 @@ const Favorites = ({ favoriteTools = [], handleToggleFavorite, favorites }) => {
         {favoriteTools.length > 0 ? (
           favoriteTools.map((tool) => (
             <Grid item key={tool.id} xs={12} sm={6} md={4}>
-              <ToolCard />
+               <ToolCard
+                  {...tool}
+                  favorites={favoriteTools}
+                  handleToggleFavorite={handleToggleFavorite}
+                />
             </Grid>
           ))
         ) : (
