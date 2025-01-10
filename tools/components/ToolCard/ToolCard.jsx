@@ -25,7 +25,7 @@ const ToolCard = (props) => {
     description,
     maskedToolUrl,
     backgroundImgURL,
-    favorites = [],
+    favorites,
     handleToggleFavorite,
   } = props;
 

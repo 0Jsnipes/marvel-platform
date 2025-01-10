@@ -1,46 +1,48 @@
 import React from 'react';
-
-import { Star, StarBorder } from '@mui/icons-material';
-import { Grid, IconButton, Typography } from '@mui/material';
-
-import styles from '../ToolsListingContainer/styles'; // Ensure you use similar styles
-
+import { Grid, Typography } from '@mui/material';
 import ToolCard from '@/tools/components/ToolCard';
+import styles from './styles'; // Replace with the actual path to your stylesheet
 
-const Favorites = ({ favoriteTools = [], handleToggleFavorite, favorites }) => {
+const Favorites = ({ favoriteTools, handleToggleFavorite }) => {
   const renderTitle = () => (
     <Grid {...styles.headerGridProps}>
       <Typography {...styles.categoryTitleProps}>
-        Favorites {favoriteTools && `(${favoriteTools.length})`}
+        Favorites {favoriteTools.length > 0 && `(${favoriteTools.length})`}
       </Typography>
     </Grid>
   );
 
   const renderCards = () => (
-    <Grid {...styles.containerGridProps}>
-      <Grid {...styles.innerListGridProps}>
-        {favoriteTools.length > 0 ? (
-          favoriteTools.map((tool) => (
-            <Grid item key={tool.id} xs={12} sm={6} md={4}>
-               <ToolCard
-                  {...tool}
-                  favorites={favoriteTools}
-                  handleToggleFavorite={handleToggleFavorite}
-                />
-            </Grid>
-          ))
-        ) : (
-          <Typography />
-        )}
-      </Grid>
+    <Grid {...styles.mainGridProps}>
+      {favoriteTools.length > 0 ? (
+        favoriteTools.map((tool) => (
+          <Grid
+            item
+            key={tool.id}
+            xs={12}
+            sm={6}
+            md={4}
+            {...styles.toolDetailsGridProps}
+          >
+            <ToolCard
+              {...tool}
+              favorites={favoriteTools}
+              handleToggleFavorite={handleToggleFavorite}
+            />
+          </Grid>
+        ))
+      ) : (
+        <Typography>No favorite tools added yet.</Typography>
+      )}
     </Grid>
   );
 
   return (
-    <Grid {...styles.mainGridProps}>
+    <Grid container direction="column" spacing={2}>
       {renderTitle()}
       {renderCards()}
     </Grid>
   );
 };
+
 export default Favorites;
